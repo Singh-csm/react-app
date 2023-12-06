@@ -1,0 +1,51 @@
+.container {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table {
+    width: 50%;
+    margin: 40px auto;    
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.th, .td {
+    border-bottom: 1px solid #C9CCD5;
+    padding: 10px 5px;
+}
+
+.remove_button {
+    border: none;
+    border-radius: 5px;
+    background-color: #3A3845;
+    color: white;
+    width: 60px;
+    height: 30px;
+    font-size: 10px;
+    margin-right: 10px;
+}
+.back_button {
+    border: none;
+    border-radius: 20px;
+    background-color: #3A3845;
+    color: white;
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.enroll_button {
+    border: none;
+    border-radius: 20px;
+    background-color: #3A3845;
+    color: white;
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+

@@ -1,0 +1,44 @@
+.header {
+    height: 300px;
+    background-image: url('../images/events_header.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;     
+    align-items: center;        
+    text-align: center;
+    width: 60%;    
+    margin: 50px auto;    
+}
+
+.img {
+    width: 80%;
+    height: 300px;
+    border-radius: 10px;    
+}
+
+.text {
+    text-align: left;
+    font-size: 16px;
+}
+
+.button {
+    border: none;
+    border-radius: 20px;
+    background-color: #3A3845;
+    color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    display: block;
+    margin-top: 20px;
+}

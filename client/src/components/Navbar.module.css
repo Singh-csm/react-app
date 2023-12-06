@@ -1,0 +1,22 @@
+.nav_flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 20%;
+    background-color: #3A3845;
+    color: white;
+    font-size: 16px;    
+}
+
+.menu_flex {
+    display: flex;
+    align-items: center;    
+}
+
+.linkStyle {
+    text-decoration: none;
+    color: white;
+}
+
+
+
