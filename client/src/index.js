@@ -1,31 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
+let defaultState = [];
 
-let defaultState = []
-
-function reducer( state = defaultState, action){
-  if( action.type === 'addItem'){
-    let found = state.findIndex((a)=>{return a.id === action.payload.id});
-      if( found >= 0){
-        let copy = [...state];
-        return copy;
-      } else {
-        let copy = [...state];
-        copy.push(action.payload);
-        return copy
-      }    
-  }  
-  else{ return state}
+function reducer(state = defaultState, action) {
+  if (action.type === "addItem") {
+    let found = state.findIndex((a) => {
+      return a.id === action.payload.id;
+    });
+    if (found >= 0) {
+      let copy = [...state];
+      return copy;
+    } else {
+      let copy = [...state];
+      copy.push(action.payload);
+      return copy;
+    }
+  } else {
+    return state;
+  }
 }
 
-let store = createStore(reducer)   //combineReducers({reducer, reducer2})
+let store = createStore(reducer); //combineReducers({reducer, reducer2})
 
 ReactDOM.render(
   <React.StrictMode>
@@ -34,9 +36,8 @@ ReactDOM.render(
         <App />
       </Provider>
     </BrowserRouter>
-    
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

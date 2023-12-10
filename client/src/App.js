@@ -1,93 +1,118 @@
-import React, { useState } from 'react';
-import { Link, Switch, Redirect, Route } from 'react-router-dom'
-import './App.css';
-import Navbar from './components/Navbar';
-import Main from './components/Main';
-import ClassList from './components/ClassList'
-import Community from './components/Community';
-import ClassDetail from './components/ClassDetail';
-import Data from './components/data.jsx'
-import MyClass from './components/MyClass';
-import CommunityForm from './components/CommunityForm';
-import Events from './components/Events';
-import ClassCreate from './components/ClassCreate';
-import CommunityUpdate from './components/CommunityUpdate';
-import UserLogin from './components/UserLogin';
-import UserCreate from './components/UserCreate';
-import Instructors from './components/Instructors';
+import React, { useEffect, useState } from "react";
+// import { Link, Router, Routes, Navigate, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import { Navigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Main from "./components/Main";
+import ClassList from "./components/ClassList";
+import Community from "./components/Community";
+import ClassDetail from "./components/ClassDetail";
+import Data from "./components/data.jsx";
+import MyClass from "./components/MyClass";
+import CommunityForm from "./components/CommunityForm";
+import Events from "./components/Events";
+import ClassCreate from "./components/ClassCreate";
+import CommunityUpdate from "./components/CommunityUpdate";
+import UserLogin from "./components/UserLogin";
+import UserCreate from "./components/UserCreate";
+import Instructors from "./components/Instructors";
+
+const ProtectedRoute = ({ children, auth = false }) => {
+  const isLoggedIn = localStorage.getItem("token") !== null || false;
+
+  if (!isLoggedIn) {
+    return <Navigate to={"/users/login"} />;
+  } else if (
+    isLoggedIn &&
+    ["/users/login", "/users/new"].includes(window.location.pathname)
+  ) {
+    return <Navigate to={"/"} />;
+  }
+
+  return children;
+};
+
+const Protected = () => {
+  const isLoggedIn = localStorage.getItem("token") !== null || false;
+  if (isLoggedIn) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 function App() {
+  console.log(Protected());
 
-  const [classes, setClasses] = useState(Data)
+  const [classes, setClasses] = useState(Data);
 
   return (
-    <div className="App">
-      <Navbar/>
+    <>
+      <div className="App">
+        {Protected() && <Navbar />}
 
-      <Switch>
+        <Routes>
+          {/* Instructor */}
+          <Route path="/instructors" element={<Instructors />} />
 
-        {/* Instructor */}
-        <Route path='/instructors'>
-          <Instructors />
-        </Route>
+          {/* Events */}
+          <Route path="/events" element={<Events />} />
 
-        {/* Events */}
-        <Route path='/events'>
-          <Events />
-        </Route>
-        
-        {/* Community */}
+          {/* Community */}
           {/* Create */}
-        <Route path='/community/new'> 
-          <CommunityForm />
-        </Route> 
-         {/* Update */}
-        <Route path='/community/update/:id'>
-          <CommunityUpdate />
-        </Route>
+          <Route path="/community/new" element={<CommunityForm />} />
+
+          {/* Update */}
+          <Route path="/community/update/:id" element={<CommunityUpdate />} />
+
           {/* Show All */}
-        <Route path='/community'>
-          <Community />
-        </Route>
+          <Route path="/community" element={<Community />} />
 
+          {/* Create Class Page */}
+          <Route path="/classes/admin/upload" element={<ClassCreate />} />
 
-        {/* Create Class Page */}
-        <Route path='/classes/admin/upload'>
-          <ClassCreate />
-        </Route>
+          {/* Class Page */}
+          <Route
+            path="/classes/:classId"
+            element={<ClassDetail classes={classes} />}
+          />
 
-        {/* Class Page */}
-        <Route path="/classes/:classId">
-          <ClassDetail classes={classes}/>
-        </Route>
+          <Route path="/classes" element={<ClassList classes={classes} />} />
 
-        <Route path='/classes'>
-          <ClassList classes={classes}/>
-        </Route>
+          <Route path="/myclass" element={<MyClass />} />
 
-        <Route path='/myclass'>
-          <MyClass />
-        </Route>
+          {/* Login and Reg */}
+          <Route path="/users/login" element={<UserLogin />} />
 
-        {/* Login and Reg */}
-        <Route path='/users/login'>
-          <UserLogin />
-        </Route>
-        <Route path='/users/new'>
-          <UserCreate />
-        </Route>
+          <Route path="/users/new" element={<UserCreate />} />
 
-        {/* Main page */}
-        <Route path="/home">
-          <Main/>
-        </Route>
+          {/* Main page */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Main />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Redirect to main */}
-        <Route path='/'>
-          <Redirect to='/home'></Redirect>
-        </Route>
-      </Switch>
-    </div>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Main />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Redirect to main */}
+          {/* <Route path="/">
+            <Navigate replace to="/home" />
+          </Route> */}
+        </Routes>
+      </div>
+    </>
   );
 }
 
